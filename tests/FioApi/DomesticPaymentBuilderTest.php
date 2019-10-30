@@ -33,6 +33,7 @@ class DomesticPaymentBuilderTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('Groceries Foo, Inc.', (string) $tx->messageForRecipient);
         $this->assertEquals('Comment', (string) $tx->comment);
         $this->assertEquals('431001', (string) $tx->paymentType);
+        $this->assertEquals('ardani', (string) $tx->senderName);
     }
 
     protected function tearDown()
@@ -66,6 +67,7 @@ class DomesticPaymentBuilderTest extends \PHPUnit\Framework\TestCase
         $mock->method('getUserMessage')->willReturn('Groceries Foo, Inc.');
         $mock->method('getComment')->willReturn('Comment');
         $mock->method('getSpecification')->willReturn('431001');
+        $mock->method('getSenderName')->willReturn('ardani');
 
         return $mock;
     }

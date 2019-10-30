@@ -25,6 +25,9 @@ class Transaction
     /** @var string */
     protected $bankName;
 
+    /** @var string */
+    protected $senderName;
+
     /** @var string|null */
     protected $constantSymbol;
 
@@ -55,32 +58,16 @@ class Transaction
     /** @var string|null */
     protected $specification;
 
-    /**
-     * Account owner.
-     *
-     * @var string
-     */
+    /** @var string  */
     protected $benefName;
 
-    /**
-     * Street of account owner.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $benefStreet;
 
-    /**
-     * City of account owner.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $benefCity;
 
-    /**
-     * Country of account owner.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $benefCountry;
 
     // @codingStandardsIgnoreStart
@@ -102,10 +89,7 @@ class Transaction
         $comment,
         $paymentOrderId,
         $specification,
-        $benefName,
-        $benefStreet,
-        $benefCity,
-        $benefCountry
+        $senderName
     )
     {
         $this->id = $id;
@@ -125,10 +109,7 @@ class Transaction
         $this->comment = $comment;
         $this->paymentOrderId = $paymentOrderId;
         $this->specification = $specification;
-        $this->benefName = $benefName;
-        $this->benefStreet = $benefStreet;
-        $this->benefCity = $benefCity;
-        $this->benefCountry = $benefCountry;
+        $this->senderName = $senderName;
     }
 
     /**
@@ -154,6 +135,7 @@ class Transaction
             'column16' => 'userMessage',
             'column8' => 'transactionType',
             'column9' => 'performedBy',
+            'column10' => 'senderName',
             'column25' => 'comment',
             'column17' => 'paymentOrderId',
             'column18' => 'specification',
@@ -161,12 +143,16 @@ class Transaction
 
         $newData = new \stdClass();
         foreach ($data as $key => $value) {
-            if (isset($mapColumnToProps[$key]) && $value !== null) {
+            if (isset($mapColumnToProps[$key])) {
                 $newKey = $mapColumnToProps[$key];
-                if ($newKey === 'date') {
-                    $newData->{$newKey} = new \DateTime($value->value);
+                if ($value !== null) {
+                    if ($newKey === 'date') {
+                        $newData->{$newKey} = new \DateTime($value->value);
+                    } else {
+                        $newData->{$newKey} = $value->value;
+                    }
                 } else {
-                    $newData->{$newKey} = $value->value;
+                    $newData->{$newKey} = null;
                 }
             }
         }
@@ -182,27 +168,24 @@ class Transaction
     public static function create(\stdClass $data): Transaction
     {
         return new self(
-            !empty($data->id) ? $data->id : null,
+            $data->id,
             $data->date,
             $data->amount,
             $data->currency,
-            !empty($data->accountNumber) ? $data->accountNumber : null,
-            !empty($data->bankCode) ? $data->bankCode : null,
-            !empty($data->bankName) ? $data->bankName : null,
-            !empty($data->constantSymbol) ? $data->constantSymbol : null,
-            !empty($data->variableSymbol) ? $data->variableSymbol : '0',
-            !empty($data->specificSymbol) ? $data->specificSymbol : null,
-            !empty($data->userIdentity) ? $data->userIdentity : null,
-            !empty($data->userMessage) ? $data->userMessage : null,
-            !empty($data->transactionType) ? $data->transactionType : null,
-            !empty($data->performedBy) ? $data->performedBy : null,
-            !empty($data->comment) ? $data->comment : null,
-            !empty($data->paymentOrderId) ? $data->paymentOrderId : null,
-            !empty($data->specification) ? $data->specification : null,
-            !empty($data->benefName) ? $data->benefName : null,
-            !empty($data->benefStreet) ? $data->benefStreet : null,
-            !empty($data->benefCity) ? $data->benefCity : null,
-            !empty($data->benefCountry) ? $data->benefCountry : null
+            $data->accountNumber,
+            $data->bankCode,
+            $data->bankName,
+            $data->constantSymbol,
+            $data->variableSymbol ?: '0',
+            $data->specificSymbol,
+            $data->userIdentity,
+            $data->userMessage,
+            $data->transactionType,
+            $data->performedBy,
+            $data->comment,
+            $data->paymentOrderId,
+            $data->specification,
+            $data->senderName
         );
     }
 
@@ -226,18 +209,17 @@ class Transaction
         return $this->currency;
     }
 
-    /**
-     * @return string
-     */
-    public function getAccountNumber()
+    public function getAccountNumber(): string
     {
         return $this->accountNumber;
     }
 
-    /**
-     * @return string
-     */
-    public function getBankCode()
+    public function getSenderName(): string
+    {
+        return $this->senderName;
+    }
+
+    public function getBankCode(): string
     {
         return $this->bankCode;
     }
@@ -290,37 +272,5 @@ class Transaction
     public function getSpecification(): ?string
     {
         return $this->specification;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBenefName()
-    {
-        return $this->benefName;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBenefStreet()
-    {
-        return $this->benefStreet;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBenefCity()
-    {
-        return $this->benefCity;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBenefCountry()
-    {
-        return $this->benefCountry;
     }
 }

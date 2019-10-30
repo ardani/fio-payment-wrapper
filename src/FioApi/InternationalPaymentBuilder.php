@@ -37,11 +37,8 @@ class InternationalPaymentBuilder extends AbstractPaymentBuilder implements Paym
             'bic'              => $tx->getBankCode(),
             'date'             => $tx->getDate()->format('Y-m-d'),
             'comment'          => $tx->getComment(),
-            'benefName'        => $tx->getBenefName(),
-            'benefStreet'      => $tx->getBenefStreet(),
-            'benefCity'        => $tx->getBenefCity(),
-            'benefCountry'     => $tx->getBenefCountry(),
             'detailsOfCharges' => $tx->getSpecification(),
+            'senderName'       => $tx->getSenderName(),
             'paymentReason'    => $tx->getTransactionType(),
         ];
 

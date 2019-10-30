@@ -39,6 +39,7 @@ class DomesticPaymentBuilder extends AbstractPaymentBuilder implements PaymentBu
             'messageForRecipient' => $tx->getUserMessage(),
             'comment'             => $tx->getComment(),
             'paymentType'         => $tx->getSpecification(),
+            'senderName'          => $tx->getSenderName(),
         ];
 
         foreach ($nodes as $el => $value) {

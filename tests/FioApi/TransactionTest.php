@@ -25,23 +25,6 @@ class TransactionTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('Comment? Comment!', $transaction->getComment());
         $this->assertSame('1111122222', $transaction->getPaymentOrderId());
         $this->assertSame('1500.00 EUR', $transaction->getSpecification());
-    }
-
-    public function testBenefFields()
-    {
-        $tx = Transaction::create((object) [
-            'date'         => new \DateTime(),
-            'amount'       => 200.00,
-            'currency'     => 'CAD',
-            'benefName'    => 'Petr Kramar',
-            'benefStreet'  => 'Andelova 12',
-            'benefCity'    => 'Ostrava',
-            'benefCountry' => 'CZ',
-        ]);
-
-        $this->assertEquals('Petr Kramar', $tx->getBenefName());
-        $this->assertEquals('Andelova 12', $tx->getBenefStreet());
-        $this->assertEquals('Ostrava', $tx->getBenefCity());
-        $this->assertEquals('CZ', $tx->getBenefCountry());
+        $this->assertSame('ardani', $transaction->getSenderName());
     }
 }

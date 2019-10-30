@@ -44,7 +44,11 @@
             "name": "Protiúčet",
             "id": 2
           },
-          "column10": null,
+          "column10": {
+            "value": "ardani",
+            "name": "Název protiúčtu",
+            "id": 10
+          },
           "column3": {
             "value": "0000",
             "name": "Kód banky",

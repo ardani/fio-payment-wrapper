@@ -37,10 +37,7 @@ class EuroPaymentBuilder extends AbstractPaymentBuilder implements PaymentBuilde
             'bic'             => $tx->getBankCode(),
             'date'            => $tx->getDate()->format('Y-m-d'),
             'comment'         => $tx->getComment(),
-            'benefName'       => $tx->getBenefName(),
-            'benefStreet'     => $tx->getBenefStreet(),
-            'benefCity'       => $tx->getBenefCity(),
-            'benefCountry'    => $tx->getBenefCountry(),
+            'senderName'      => $tx->getSenderName(),
             'paymentType'     => $tx->getSpecification(),
         ];
 
