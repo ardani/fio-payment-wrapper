@@ -1,4 +1,4 @@
-# Fio API PHP implemention [![Build Status](https://travis-ci.org/ardani/fio-payment-wrapper.svg?branch=master)](https://travis-ci.org/ardani/fio-payment-wrapper) [![Build Status Windows](https://ci.appveyor.com/api/projects/status/github/ardani/fio-payment-wrapper?branch=master&svg=true)](https://ci.appveyor.com/project/ardani/fio-payment-wrapper/branch/master)
+# Fio API PHP implemention [![Build Status](https://travis-ci.org/ardani/fio-payment-wrapper.svg?branch=master)](https://travis-ci.org/ardani/fio-payment-wrapper)
 
 [![Latest Stable Version](https://poser.pugx.org/ardani/fio-payment-wrapper/version.png)](https://packagist.org/packages/ardani/fio-payment-wrapper) [![Total Downloads](https://poser.pugx.org/ardani/fio-payment-wrapper/downloads.png)](https://packagist.org/packages/ardani/fio-payment-wrapper) [![License](https://poser.pugx.org/mhujer/fio-payment-wrapper/license.svg)](https://packagist.org/packages/ardani/fio-payment-wrapper) [![Coverage Status](https://coveralls.io/repos/ardani/fio-payment-wrapper/badge.svg?branch=master)](https://coveralls.io/r/ardani/fio-payment-wrapper?branch=master)
 
