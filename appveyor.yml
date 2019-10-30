@@ -6,7 +6,7 @@ platform:
 cache:
     - c:\php -> appveyor.yml
     - '%LOCALAPPDATA%\Composer\files -> appveyor.yml'
-clone_folder: c:\projects\fio-api-php
+clone_folder: c:\projects\fio-payment-wrapper
 
 init:
     - SET PATH=c:\php;%PATH%
@@ -28,7 +28,7 @@ install:
     - IF %PHP%==1 echo extension=php_openssl.dll >> php.ini
     - IF %PHP%==1 del /Q *.zip
     - IF %PHP%==1 cd ..
-    - cd c:\projects\fio-api-php
+    - cd c:\projects\fio-payment-wrapper
     - appveyor DownloadFile https://getcomposer.org/composer.phar
     - php composer.phar install --prefer-dist --no-progress --ansi
 
