@@ -18,7 +18,7 @@ Usage
 require_once 'vendor/autoload.php';
 
 $downloader = new FioApi\Downloader('TOKEN@todo');
-$transactionList = $downloader->downloadSince(new \DateTime('-1 week'));
+$transactionList = $downloader->downloadSince(new \DateTimeImmutable('-1 week'));
 
 foreach ($transactionList->getTransactions() as $transaction) {
     var_dump($transaction); //object with getters
@@ -115,7 +115,7 @@ echo "\n";
 
 Requirements
 ------------
-Fio API PHP works with PHP 5.5, PHP 5.6 or PHP 7.
+Fio API PHP works with PHP 7.1 or higher.
 
 Submitting bugs and feature requests
 ------------------------------------
@@ -123,10 +123,31 @@ Bugs and feature request are tracked on [GitHub](https://github.com/mhujer/fio-a
 
 Author
 ------
-Martin Hujer - <mhujer@gmail.com> - <https://www.martinhujer.cz>
+Martin Hujer - <https://www.martinhujer.cz>
 
 Changelog
 ----------
+
+## 4.1.1 (2019-01-28)
+- [#17](https://github.com/mhujer/fio-api-php/pull/17) added senderName (nazev protiuctu) (thx @jan-stanek!)
+
+## 4.1.0 (2018-04-13)
+- [#13](https://github.com/mhujer/fio-api-php/pull/13) Support /last and /set-last-id endpoints (thx @jiripudil!)
+
+## 4.0.1 (2017-08-09)
+- [#12](https://github.com/mhujer/fio-api-php/pull/12) handle empty transaction list  (thx @soukicz!)
+
+## 4.0.0 (2017-08-04)
+- [#9](https://github.com/mhujer/fio-api-php/pull/9) minimal supported version is PHP 7.1
+- [#9](https://github.com/mhujer/fio-api-php/pull/9)`DateTime` replaced with `DateTimeImmutable` (or `DateTimeInterface`)
+- [#9](https://github.com/mhujer/fio-api-php/pull/9) strict types and primitive typehints are used everywhere
+
+## 3.0.0 (2016-11-24)
+- dropped support for PHP <7
+
+## 2.3.0 (2016-11-24)
+- [#7](https://github.com/mhujer/fio-api-php/pull/7): added official composer CA bundle support (@soukicz)
+
 ## 2.2.0 (2016-03-13)
 - [#2](https://github.com/mhujer/fio-api-php/pull/2): added [Kdyby/CurlCaBundle](https://github.com/Kdyby/CurlCaBundle)
  	as an optional dependency (@mhujer)

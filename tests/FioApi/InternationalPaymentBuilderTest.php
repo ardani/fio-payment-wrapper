@@ -2,7 +2,7 @@
 
 namespace FioApi;
 
-class InternationalPaymentBuilderTest extends \PHPUnit_Framework_TestCase
+class InternationalPaymentBuilderTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \SimpleXMLElement
@@ -29,7 +29,6 @@ class InternationalPaymentBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Comment', (string) $tx->comment);
         $this->assertEquals('470501', (string) $tx->detailsOfCharges);
         $this->assertEquals('110', (string) $tx->paymentReason);
-        $this->assertEquals('Waste of money', (string) $tx->remittanceInfo1);
         $this->assertEquals('Beit Mait', (string) $tx->benefName);
         $this->assertEquals('7 Revivim Street', (string) $tx->benefStreet);
         $this->assertEquals('Givatayim', (string) $tx->benefCity);
@@ -80,7 +79,6 @@ class InternationalPaymentBuilderTest extends \PHPUnit_Framework_TestCase
         $mock->method('getBenefStreet')->willReturn('7 Revivim Street');
         $mock->method('getBenefCity')->willReturn('Givatayim');
         $mock->method('getBenefCountry')->willReturn('IL');
-        $mock->method('getRemittanceInfo1')->willReturn('Waste of money');
 
         return $mock;
     }

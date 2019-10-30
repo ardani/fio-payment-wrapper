@@ -2,7 +2,7 @@
 
 namespace FioApi;
 
-class EuroPaymentBuilderTest extends \PHPUnit_Framework_TestCase
+class EuroPaymentBuilderTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \SimpleXMLElement
@@ -28,7 +28,6 @@ class EuroPaymentBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('2016-04-18', (string) $tx->date);
         $this->assertEquals('Comment', (string) $tx->comment);
         $this->assertEquals('431008', (string) $tx->paymentType);
-        $this->assertEquals('Waste of money', (string) $tx->remittanceInfo1);
     }
 
     protected function setUp()
@@ -74,7 +73,6 @@ class EuroPaymentBuilderTest extends \PHPUnit_Framework_TestCase
         $mock->method('getBenefStreet')->willReturn('Gugitzgasse 2');
         $mock->method('getBenefCity')->willReturn('Wien');
         $mock->method('getBenefCountry')->willReturn('AT');
-        $mock->method('getRemittanceInfo1')->willReturn('Waste of money');
 
         return $mock;
     }

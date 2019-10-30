@@ -2,12 +2,21 @@
 
 namespace FioApi;
 
-class DomesticPaymentBuilderTest extends \PHPUnit_Framework_TestCase
+class DomesticPaymentBuilderTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \SimpleXMLElement
      */
     protected $request;
+
+    protected function setUp()
+    {
+        $builder = new DomesticPaymentBuilder();
+        $account = $this->createAccount();
+        $tx = $this->createTransaction();
+
+        $this->request = $builder->build($account, [$tx]);
+    }
 
     public function testDomesticTransaction()
     {
@@ -24,15 +33,6 @@ class DomesticPaymentBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Groceries Foo, Inc.', (string) $tx->messageForRecipient);
         $this->assertEquals('Comment', (string) $tx->comment);
         $this->assertEquals('431001', (string) $tx->paymentType);
-    }
-
-    protected function setUp()
-    {
-        $builder = new DomesticPaymentBuilder();
-        $account = $this->createAccount();
-        $tx = $this->createTransaction();
-
-        $this->request = $builder->build($account, [$tx]);
     }
 
     protected function tearDown()

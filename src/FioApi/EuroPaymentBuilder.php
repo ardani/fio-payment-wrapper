@@ -41,9 +41,6 @@ class EuroPaymentBuilder extends AbstractPaymentBuilder implements PaymentBuilde
             'benefStreet'     => $tx->getBenefStreet(),
             'benefCity'       => $tx->getBenefCity(),
             'benefCountry'    => $tx->getBenefCountry(),
-            'remittanceInfo1' => $tx->getRemittanceInfo1(),
-            'remittanceInfo2' => $tx->getRemittanceInfo2(),
-            'remittanceInfo3' => $tx->getRemittanceInfo3(),
             'paymentType'     => $tx->getSpecification(),
         ];
 

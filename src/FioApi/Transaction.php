@@ -4,9 +4,7 @@ namespace FioApi;
 
 class Transaction
 {
-    const REMITTANCE_INFO_LENGTH = 35;
-
-    /** @var int */
+    /** @var string */
     protected $id;
 
     /** @var \DateTime */
@@ -27,34 +25,34 @@ class Transaction
     /** @var string */
     protected $bankName;
 
-    /** @var int */
+    /** @var string|null */
     protected $constantSymbol;
 
-    /** @var string */
+    /** @var string|null */
     protected $variableSymbol;
 
-    /** @var int */
+    /** @var string|null */
     protected $specificSymbol;
 
-    /** @var string */
+    /** @var string|null */
     protected $userIdentity;
 
-    /** @var string */
+    /** @var string|null */
     protected $userMessage;
 
     /** @var string */
     protected $transactionType;
 
-    /** @var string */
+    /** @var string|null */
     protected $performedBy;
 
-    /** @var string */
+    /** @var string|null */
     protected $comment;
 
     /** @var string */
     protected $paymentOrderId;
 
-    /** @var string */
+    /** @var string|null */
     protected $specification;
 
     /**
@@ -85,9 +83,10 @@ class Transaction
      */
     protected $benefCountry;
 
+    // @codingStandardsIgnoreStart
     protected function __construct(
         $id,
-        $date,
+        \DateTime $date,
         $amount,
         $currency,
         $accountNumber,
@@ -107,7 +106,8 @@ class Transaction
         $benefStreet,
         $benefCity,
         $benefCountry
-    ) {
+    )
+    {
         $this->id = $id;
         $this->date = $date;
         $this->amount = $amount;
@@ -135,24 +135,25 @@ class Transaction
      * @param \stdClass $data Transaction data from JSON API response
      *
      * @return Transaction
+     * @throws \Exception
      */
     public static function createFromJson(\stdClass $data)
     {
         $mapColumnToProps = [
             'column22' => 'id',
-            'column0'  => 'date',
-            'column1'  => 'amount',
+            'column0' => 'date',
+            'column1' => 'amount',
             'column14' => 'currency',
-            'column2'  => 'accountNumber',
-            'column3'  => 'bankCode',
+            'column2' => 'accountNumber',
+            'column3' => 'bankCode',
             'column12' => 'bankName',
-            'column4'  => 'constantSymbol',
-            'column5'  => 'variableSymbol',
-            'column6'  => 'specificSymbol',
-            'column7'  => 'userIdentity',
+            'column4' => 'constantSymbol',
+            'column5' => 'variableSymbol',
+            'column6' => 'specificSymbol',
+            'column7' => 'userIdentity',
             'column16' => 'userMessage',
-            'column8'  => 'transactionType',
-            'column9'  => 'performedBy',
+            'column8' => 'transactionType',
+            'column9' => 'performedBy',
             'column25' => 'comment',
             'column17' => 'paymentOrderId',
             'column18' => 'specification',
@@ -173,7 +174,12 @@ class Transaction
         return self::create($newData);
     }
 
-    public static function create(\stdClass $data)
+    /**
+     * @param \stdClass $data Transaction data from JSON API response
+     *
+     * @return Transaction
+     */
+    public static function create(\stdClass $data): Transaction
     {
         return new self(
             !empty($data->id) ? $data->id : null,
@@ -200,34 +206,22 @@ class Transaction
         );
     }
 
-    /**
-     * @return int
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getDate()
+    public function getDate(): \DateTime
     {
         return $this->date;
     }
 
-    /**
-     * @return float
-     */
-    public function getAmount()
+    public function getAmount(): float
     {
         return $this->amount;
     }
 
-    /**
-     * @return string
-     */
-    public function getCurrency()
+    public function getCurrency(): string
     {
         return $this->currency;
     }
@@ -241,18 +235,6 @@ class Transaction
     }
 
     /**
-     * @deprecated
-     *
-     * @return string
-     */
-    public function getSenderAccountNumber()
-    {
-        trigger_error(__METHOD__.' is deprecated use getAccountNumber() instead.', E_USER_DEPRECATED);
-
-        return $this->getAccountNumber();
-    }
-
-    /**
      * @return string
      */
     public function getBankCode()
@@ -260,154 +242,52 @@ class Transaction
         return $this->bankCode;
     }
 
-    /**
-     * @deprecated
-     *
-     * @return string
-     */
-    public function getSenderBankCode()
-    {
-        trigger_error(__METHOD__.' is deprecated use getBankCode() instead.', E_USER_DEPRECATED);
-
-        return $this->getBankCode();
-    }
-
-    /**
-     * @return string
-     */
-    public function getBankName()
-    {
-        return $this->bankName;
-    }
-
-    /**
-     * @deprecated
-     *
-     * @return string
-     */
-    public function getSenderBankName()
-    {
-        trigger_error(__METHOD__.' is deprecated use getBankName() instead.', E_USER_DEPRECATED);
-
-        return $this->getBankName();
-    }
-
-    /**
-     * @return int
-     */
-    public function getConstantSymbol()
+    public function getConstantSymbol(): ?string
     {
         return $this->constantSymbol;
     }
 
-    /**
-     * @return string
-     */
-    public function getVariableSymbol()
+    public function getVariableSymbol(): ?string
     {
         return $this->variableSymbol;
     }
 
-    /**
-     * @return int
-     */
-    public function getSpecificSymbol()
+    public function getSpecificSymbol(): ?string
     {
         return $this->specificSymbol;
     }
 
-    /**
-     * @return string
-     */
-    public function getUserIdentity()
+    public function getUserIdentity(): ?string
     {
         return $this->userIdentity;
     }
 
-    /**
-     * @return string
-     */
-    public function getUserMessage()
+    public function getUserMessage(): ?string
     {
         return $this->userMessage;
     }
 
-    /**
-     * Gets first chunk of remittance info.
-     *
-     * @return string
-     */
-    public function getRemittanceInfo1()
-    {
-        return (string) substr($this->getUserMessage(), 0, self::REMITTANCE_INFO_LENGTH);
-    }
-
-    /**
-     * Gets second chunk of remittance info.
-     *
-     * @return string
-     */
-    public function getRemittanceInfo2()
-    {
-        return (string) substr($this->getUserMessage(), self::REMITTANCE_INFO_LENGTH, self::REMITTANCE_INFO_LENGTH);
-    }
-
-    /**
-     * Gets third chunk of remittance info.
-     *
-     * @return string
-     */
-    public function getRemittanceInfo3()
-    {
-        return (string) substr($this->getUserMessage(), 2 * self::REMITTANCE_INFO_LENGTH, self::REMITTANCE_INFO_LENGTH);
-    }
-
-    /**
-     * Gets fourth chunk of remittance info.
-     *
-     * @return string
-     */
-    public function getRemittanceInfo4()
-    {
-        return (string) substr($this->getUserMessage(), 3 * self::REMITTANCE_INFO_LENGTH, self::REMITTANCE_INFO_LENGTH);
-    }
-
-    /**
-     * @return string
-     */
-    public function getTransactionType()
+    public function getTransactionType(): string
     {
         return $this->transactionType;
     }
 
-    /**
-     * @return string
-     */
-    public function getPerformedBy()
+    public function getPerformedBy(): ?string
     {
         return $this->performedBy;
     }
 
-    /**
-     * @return string
-     */
-    public function getComment()
+    public function getComment(): ?string
     {
         return $this->comment;
     }
 
-    /**
-     * @return string
-     */
-    public function getPaymentOrderId()
+    public function getPaymentOrderId(): ?string
     {
         return $this->paymentOrderId;
     }
 
-    /**
-     * @return string
-     */
-    public function getSpecification()
+    public function getSpecification(): ?string
     {
         return $this->specification;
     }

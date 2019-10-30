@@ -16,10 +16,10 @@ class TransactionList
     /** @var \DateTime */
     protected $dateEnd;
 
-    /** @var int */
+    /** @var float */
     protected $idFrom;
 
-    /** @var int */
+    /** @var float */
     protected $idTo;
 
     /** @var int */
@@ -32,23 +32,24 @@ class TransactionList
     protected $transactions = [];
 
     /**
-     * @param float     $openingBalance
-     * @param float     $closingBalance
+     * TransactionList constructor.
+     * @param float $openingBalance
+     * @param float $closingBalance
      * @param \DateTime $dateStart
      * @param \DateTime $dateEnd
-     * @param int       $idFrom
-     * @param int       $idTo
-     * @param int       $idLastDownload
-     * @param Account   $account
+     * @param float|null $idFrom
+     * @param float|null $idTo
+     * @param int|null $idLastDownload
+     * @param Account $account
      */
     protected function __construct(
-        $openingBalance,
-        $closingBalance,
+        float $openingBalance,
+        float $closingBalance,
         \DateTime $dateStart,
         \DateTime $dateEnd,
-        $idFrom,
-        $idTo,
-        $idLastDownload,
+        ?float $idFrom,
+        ?float $idTo,
+        ?int $idLastDownload,
         Account $account
     ) {
         $this->openingBalance = $openingBalance;
@@ -73,8 +74,9 @@ class TransactionList
      * @param \stdClass $data Data from JSON API response
      *
      * @return TransactionList
+     * @throws \Exception
      */
-    public static function create(\stdClass $data)
+    public static function create(\stdClass $data): TransactionList
     {
         $account = new Account(
             $data->info->accountId,
@@ -105,71 +107,47 @@ class TransactionList
     /**
      * @return float
      */
-    public function getOpeningBalance()
+    public function getOpeningBalance(): float
     {
         return $this->openingBalance;
     }
 
-    /**
-     * @return float
-     */
-    public function getClosingBalance()
+    public function getClosingBalance(): float
     {
         return $this->closingBalance;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getDateStart()
+    public function getDateStart(): \DateTime
     {
         return $this->dateStart;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getDateEnd()
+    public function getDateEnd(): \DateTime
     {
         return $this->dateEnd;
     }
 
-    /**
-     * @return int
-     */
-    public function getIdFrom()
+    public function getIdFrom(): ?float
     {
         return $this->idFrom;
     }
 
-    /**
-     * @return int
-     */
-    public function getIdTo()
+    public function getIdTo(): ?float
     {
         return $this->idTo;
     }
 
-    /**
-     * @return int
-     */
-    public function getIdLastDownload()
+    public function getIdLastDownload(): ?int
     {
         return $this->idLastDownload;
     }
 
-    /**
-     * @return Account
-     */
-    public function getAccount()
+    public function getAccount(): Account
     {
         return $this->account;
     }
 
-    /**
-     * @return Transaction[]
-     */
-    public function getTransactions()
+    public function getTransactions(): array
     {
         return $this->transactions;
     }

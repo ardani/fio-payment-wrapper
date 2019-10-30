@@ -19,15 +19,13 @@ class Account
     /** @var string */
     protected $bic;
 
-    /**
-     * @param string $accountNumber
-     * @param string $bankCode
-     * @param string $currency
-     * @param string $iban
-     * @param string $bic
-     */
-    public function __construct($accountNumber, $bankCode, $currency, $iban, $bic)
-    {
+    public function __construct(
+        string $accountNumber,
+        string $bankCode,
+        string $currency,
+        string $iban,
+        string $bic
+    ) {
         $this->accountNumber = $accountNumber;
         $this->bankCode = $bankCode;
         $this->currency = $currency;
@@ -38,7 +36,7 @@ class Account
     /**
      * @return string
      */
-    public function getAccountNumber()
+    public function getAccountNumber(): string
     {
         return $this->accountNumber;
     }
@@ -46,7 +44,7 @@ class Account
     /**
      * @return string
      */
-    public function getBankCode()
+    public function getBankCode(): string
     {
         return $this->bankCode;
     }
@@ -54,7 +52,7 @@ class Account
     /**
      * @return string
      */
-    public function getCurrency()
+    public function getCurrency(): string
     {
         return $this->currency;
     }
@@ -62,7 +60,7 @@ class Account
     /**
      * @return string
      */
-    public function getIban()
+    public function getIban(): string
     {
         return $this->iban;
     }
@@ -70,7 +68,7 @@ class Account
     /**
      * @return string
      */
-    public function getBic()
+    public function getBic(): string
     {
         return $this->bic;
     }
