@@ -1,13 +1,13 @@
 {
-  "name": "ardani/php-fio-api",
+  "name": "ardani/fio-payment-wrapper",
   "type": "library",
-  "description": "PHP Fio API implemention",
+  "description": "PHP Fio API Wrapper",
   "keywords": [
     "fio",
     "banking",
     "api"
   ],
-  "homepage": "https://github.com/ardani/php-fio-api",
+  "homepage": "https://github.com/ardani/fio-payment-wrapper",
   "license": "MIT",
   "authors": [
     {
