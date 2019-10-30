@@ -33,5 +33,5 @@ install:
     - php composer.phar install --prefer-dist --no-progress --ansi
 
 test_script:
-    - ./vendor/bin/phpunit
+    - composer ci
     - exit %X%
