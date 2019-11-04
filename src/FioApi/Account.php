@@ -22,9 +22,9 @@ class Account
     public function __construct(
         string $accountNumber,
         string $bankCode,
-        string $currency,
-        string $iban,
-        string $bic
+        string $currency = null,
+        string $iban = null,
+        string $bic = null
     ) {
         $this->accountNumber = $accountNumber;
         $this->bankCode = $bankCode;
